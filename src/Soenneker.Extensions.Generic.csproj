@@ -39,6 +39,6 @@
 
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 
-        <PackageReference Include="Soenneker.Utils.Json" Version="2.1.2" />
+        <PackageReference Include="Soenneker.Utils.Json" Version="2.1.6" />
     </ItemGroup>
 </Project>
