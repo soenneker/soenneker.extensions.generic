@@ -39,6 +39,6 @@
 
         
 
-        <PackageReference Include="Soenneker.Utils.Json" Version="2.1.532" />
+        <PackageReference Include="Soenneker.Utils.Json" Version="2.1.535" />
     </ItemGroup>
 </Project>
