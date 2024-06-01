@@ -36,16 +36,4 @@ public static class GenericExtension
         stream.ToStart();
         return stream;
     }
-
-    /// <summary>
-    /// Throws an <see cref="ArgumentNullException"/> if the input object is null.
-    /// </summary>
-    /// <param name="input">The input object.</param>
-    /// <param name="name">The name of the calling member.</param>
-    /// <exception cref="ArgumentNullException">Thrown when the input object is null.</exception>
-    public static void ThrowIfNull<T>([NotNull] this T? input, [CallerMemberName] string? name = null)
-    {
-        if (input == null)
-            throw new ArgumentNullException(name);
-    }
 }
