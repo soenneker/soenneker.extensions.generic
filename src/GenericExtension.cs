@@ -1,8 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System;
-using System.Diagnostics.Contracts;
+﻿using System.Diagnostics.Contracts;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Soenneker.Extensions.Stream;
 using Soenneker.Utils.Json;
 using Soenneker.Utils.MemoryStream.Abstract;
@@ -20,7 +17,7 @@ public static class GenericExtension
     [Pure]
     public static System.IO.Stream ToStream<T>(this T input, System.IO.Stream stream)
     {
-        JsonUtil.SerializeIntoStream(stream, input);
+        JsonUtil.SerializeToStream(stream, input);
         stream.ToStart();
         return stream;
     }
@@ -32,7 +29,7 @@ public static class GenericExtension
     public static System.IO.Stream ToStream<T>(this T input)
     {
         var stream = new MemoryStream();
-        JsonUtil.SerializeIntoStream(stream, input);
+        JsonUtil.SerializeToStream(stream, input);
         stream.ToStart();
         return stream;
     }
