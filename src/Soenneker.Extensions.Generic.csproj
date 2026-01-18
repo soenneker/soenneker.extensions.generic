@@ -39,6 +39,6 @@
         <PackageReference Include="Soenneker.Extensions.Stream" Version="4.0.97" />
         <PackageReference Include="Soenneker.Extensions.String" Version="4.0.597" />
 
-        <PackageReference Include="Soenneker.Utils.Json" Version="4.0.2395" />
+        <PackageReference Include="Soenneker.Utils.Json" Version="4.0.2396" />
     </ItemGroup>
 </Project>
