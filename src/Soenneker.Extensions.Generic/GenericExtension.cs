@@ -7,7 +7,6 @@ using System.IO;
 using System.Text.Json;
 using System.Threading;
 using Soenneker.Extensions.Arrays.Bytes;
-using Soenneker.Extensions.String;
 
 namespace Soenneker.Extensions.Generic;
 

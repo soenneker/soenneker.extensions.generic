@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
@@ -30,16 +32,19 @@
         <LangVersion>latest</LangVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
         <PackageReleaseNotes Condition="'$(PACKAGE_RELEASE_NOTES)' != ''">
             $(PACKAGE_RELEASE_NOTES)
-        </PackageReleaseNotes></PropertyGroup>
+        </PackageReleaseNotes>
+    </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
         <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
-        <PackageReference Include="Soenneker.Extensions.Stream" Version="4.0.120" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Soenneker.Utils.Json" Version="4.0.2509" />
     </ItemGroup>
 </Project>
