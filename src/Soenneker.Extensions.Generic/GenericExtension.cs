@@ -18,6 +18,7 @@ public static class GenericExtension
     /// <summary>
     /// Allows for feeding a stream into this (recommended via IMemoryStreamUtil, which gets serialized (JSON), and then the stream is returned
     /// </summary>
+    /// <returns>Allows for feeding a stream into this (recommended via IMemoryStreamUtil, which gets serialized (JSON), and then the stream is returned.</returns>
     [Pure]
     public static async System.Threading.Tasks.ValueTask<System.IO.Stream> ToStream<T>(this T input, System.IO.Stream stream, CancellationToken cancellationToken = default)
     {
@@ -30,6 +31,7 @@ public static class GenericExtension
     /// <summary>
     /// Not recommended if you have access to IMemoryStreamUtil, builds a new <see cref="MemoryStream"/> and returns that after seeking to start.
     /// </summary>
+    /// <returns>Not recommended if you have access to IMemoryStreamUtil, builds a new <see cref="MemoryStream"/> and returns that after seeking to start.</returns>
     [Pure]
     public static async System.Threading.Tasks.ValueTask<MemoryStream> ToStream<T>(this T input, CancellationToken cancellationToken = default)
     {
