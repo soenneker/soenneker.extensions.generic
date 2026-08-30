@@ -22,6 +22,9 @@ public static class GenericExtension
     [Pure]
     public static async System.Threading.Tasks.ValueTask<System.IO.Stream> ToStream<T>(this T input, System.IO.Stream stream, CancellationToken cancellationToken = default)
     {
+        stream.SetLength(0);
+        stream.Position = 0;
+
         await JsonUtil.SerializeToStream(stream, input, cancellationToken: cancellationToken)
                       .NoSync();
         stream.ToStart();
@@ -37,8 +40,16 @@ public static class GenericExtension
     {
         var stream = new MemoryStream();
 
-        await JsonUtil.SerializeToStream(stream, input, cancellationToken: cancellationToken)
-                      .NoSync();
+        try
+        {
+            await JsonUtil.SerializeToStream(stream, input, cancellationToken: cancellationToken)
+                          .NoSync();
+        }
+        catch
+        {
+            await stream.DisposeAsync().ConfigureAwait(false);
+            throw;
+        }
 
         stream.ToStart();
         return stream;

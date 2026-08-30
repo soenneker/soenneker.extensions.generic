@@ -24,10 +24,12 @@ string encoded = order.ToBase64Json();
 MemoryStream jsonStream = await order.ToStream();
 ```
 
-`ToStream(Stream)` is also available when you want to supply and reuse the destination stream yourself.
+`ToStream(Stream)` is also available when you want to supply and reuse a seekable, writable destination stream yourself.
 
 ## Available methods
 
-- `ToStream(Stream, CancellationToken)` - Serializes the value as JSON into the supplied stream, rewinds it to position zero, and returns that same stream for reuse.
+- `ToStream(Stream, CancellationToken)` - Clears the supplied stream, serializes the value as JSON, rewinds it to position zero, and returns that same stream. The stream must support `SetLength`, writing, and seeking. It is left open for the caller.
 - `ToStream(CancellationToken)` - Creates a new `MemoryStream`, writes the value as JSON, rewinds it, and returns it ready to read. Dispose the returned stream when finished.
 - `ToBase64Json()` - Serializes the value to UTF-8 JSON bytes and returns their Base64 representation; a null value throws `ArgumentNullException`.
+
+Serialization and cancellation failures propagate. A supplied stream may contain partial JSON after such a failure; the internally created `MemoryStream` overload disposes its stream before rethrowing. JSON naming and converter behavior come from `Soenneker.Utils.Json.JsonUtil`.
