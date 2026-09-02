@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Threading;
 using AwesomeAssertions;
 using Soenneker.Tests.Unit;
 
@@ -14,11 +15,11 @@ public class GenericExtensionTests : UnitTest
     }
 
     [Test]
-    public async System.Threading.Tasks.Task ToStream_replaces_existing_stream_content()
+    public async System.Threading.Tasks.Task ToStream_replaces_existing_stream_content(CancellationToken cancellationToken)
     {
         var stream = new MemoryStream(Encoding.UTF8.GetBytes("this is stale content that must not remain"));
 
-        System.IO.Stream result = await new { Id = 1 }.ToStream(stream);
+        System.IO.Stream result = await new { Id = 1 }.ToStream(stream, cancellationToken);
 
         result.Should().BeSameAs(stream);
         result.Position.Should().Be(0);
