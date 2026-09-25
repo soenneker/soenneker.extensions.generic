@@ -1,4 +1,5 @@
-﻿using Soenneker.Extensions.Stream;
+using System.Text.Json.Serialization.Metadata;
+using Soenneker.Extensions.Stream;
 using Soenneker.Extensions.Task;
 using Soenneker.Utils.Json;
 using System;
@@ -19,13 +20,17 @@ public static class GenericExtension
     /// Allows for feeding a stream into this (recommended via IMemoryStreamUtil, which gets serialized (JSON), and then the stream is returned
     /// </summary>
     /// <returns>Allows for feeding a stream into this (recommended via IMemoryStreamUtil, which gets serialized (JSON), and then the stream is returned.</returns>
+    /// <param name="input">The value to serialize.</param>
+    /// <param name="stream">The destination stream, reset before writing.</param>
+    /// <param name="typeInfo">Source-generated JSON metadata and serialization options for the value.</param>
+    /// <param name="cancellationToken">Cancels serialization.</param>
     [Pure]
-    public static async System.Threading.Tasks.ValueTask<System.IO.Stream> ToStream<T>(this T input, System.IO.Stream stream, CancellationToken cancellationToken = default)
+    public static async System.Threading.Tasks.ValueTask<System.IO.Stream> ToStream<T>(this T input, System.IO.Stream stream, JsonTypeInfo<T> typeInfo, CancellationToken cancellationToken = default)
     {
         stream.SetLength(0);
         stream.Position = 0;
 
-        await JsonUtil.SerializeToStream(stream, input, cancellationToken: cancellationToken)
+        await JsonUtil.SerializeToStream(stream, input, typeInfo, cancellationToken: cancellationToken)
                       .NoSync();
         stream.ToStart();
         return stream;
@@ -35,14 +40,17 @@ public static class GenericExtension
     /// Not recommended if you have access to IMemoryStreamUtil, builds a new <see cref="MemoryStream"/> and returns that after seeking to start.
     /// </summary>
     /// <returns>Not recommended if you have access to IMemoryStreamUtil, builds a new <see cref="MemoryStream"/> and returns that after seeking to start.</returns>
+    /// <param name="input">The value to serialize.</param>
+    /// <param name="typeInfo">Source-generated JSON metadata and serialization options for the value.</param>
+    /// <param name="cancellationToken">Cancels serialization.</param>
     [Pure]
-    public static async System.Threading.Tasks.ValueTask<MemoryStream> ToStream<T>(this T input, CancellationToken cancellationToken = default)
+    public static async System.Threading.Tasks.ValueTask<MemoryStream> ToStream<T>(this T input, JsonTypeInfo<T> typeInfo, CancellationToken cancellationToken = default)
     {
         var stream = new MemoryStream();
 
         try
         {
-            await JsonUtil.SerializeToStream(stream, input, cancellationToken: cancellationToken)
+            await JsonUtil.SerializeToStream(stream, input, typeInfo, cancellationToken: cancellationToken)
                           .NoSync();
         }
         catch
@@ -73,12 +81,13 @@ public static class GenericExtension
     /// <exception cref="JsonException">
     /// Thrown if the object cannot be serialized to JSON.
     /// </exception>
-    public static string ToBase64Json<T>(this T obj)
+    /// <param name="typeInfo">Source-generated JSON metadata and serialization options for the value.</param>
+    public static string ToBase64Json<T>(this T obj, JsonTypeInfo<T> typeInfo)
     {
         if (obj == null)
             throw new ArgumentNullException(nameof(obj));
 
-        byte[] bytes = JsonUtil.SerializeToUtf8Bytes(obj);
+        byte[] bytes = JsonUtil.SerializeToUtf8Bytes(obj, typeInfo);
 
         return bytes.ToBase64String();
     }
