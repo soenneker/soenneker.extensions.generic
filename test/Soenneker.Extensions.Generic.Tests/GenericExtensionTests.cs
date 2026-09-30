@@ -15,7 +15,7 @@ public class GenericExtensionTests : UnitTest
     }
 
     [Test]
-    public async System.Threading.Tasks.Task ToStream_replaces_existing_stream_content(CancellationToken cancellationToken)
+    public async System.Threading.Tasks.ValueTask ToStream_replaces_existing_stream_content(CancellationToken cancellationToken)
     {
         var stream = new MemoryStream(Encoding.UTF8.GetBytes("this is stale content that must not remain"));
 
