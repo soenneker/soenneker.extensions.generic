@@ -25,7 +25,7 @@ public class GenericExtensionTests : UnitTest
         result.Position.Should().Be(0);
 
         using var reader = new StreamReader(result, Encoding.UTF8, leaveOpen: true);
-        (await reader.ReadToEndAsync()).Should().Be("{\"id\":1}");
+        (await reader.ReadToEndAsync(cancellationToken: cancellationToken)).Should().Be("{\"id\":1}");
     }
 }
 
