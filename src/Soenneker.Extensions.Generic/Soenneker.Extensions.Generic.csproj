@@ -45,6 +45,6 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Extensions.Arrays.Bytes" Version="11.0.79" />
-        <PackageReference Include="Soenneker.Utils.Json" Version="11.0.2766" />
+        <PackageReference Include="Soenneker.Utils.Json" Version="11.0.2769" />
     </ItemGroup>
 </Project>
